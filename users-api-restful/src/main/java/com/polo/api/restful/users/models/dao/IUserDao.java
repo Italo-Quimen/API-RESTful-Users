@@ -8,8 +8,11 @@ import com.polo.api.restful.users.models.entity.User;
 
 public interface IUserDao extends CrudRepository<User, UUID> {
 
+	Optional<User> findById(UUID id);
+
 	boolean existsByName(String name);
+
 	Optional<User> findByName(String name);
-	
+
 	boolean existsByEmail(String email);
 }

@@ -5,12 +5,16 @@ import static com.polo.api.restful.users.security.TokenJwtConfig.SECRET_KEY;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,6 +66,18 @@ public class UserRestfulController {
 			e.printStackTrace();
 		}
 		return create(user, result);
+	}
+	
+	@PutMapping("/{uuid}")
+	public ResponseEntity<?> update(@Valid @RequestBody User user, BindingResult result, @PathVariable("uuid") UUID uuid) {
+		if (result.hasFieldErrors()) {
+			return validation(result);
+		}
+		Optional<User> userOptional = userService.update(uuid, user);
+		if (userOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(userOptional.orElseThrow());
+		}
+		return ResponseEntity.notFound().build();
 	}
 
 	private ResponseEntity<?> validation(BindingResult result) {

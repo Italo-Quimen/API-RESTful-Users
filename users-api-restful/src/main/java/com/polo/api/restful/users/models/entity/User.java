@@ -42,7 +42,7 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(generator = "uuid2")
-	private UUID id;
+	private UUID uuid;
 
 	@NotNull(message = "{NotNull.user.name}")
 	@IsRequired(message = "{IsRequired.user.name}")
@@ -68,7 +68,7 @@ public class User implements Serializable {
 	private List<Role> roles;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonManagedReference
+	//@JsonManagedReference
 	private List<Phone> phones;
 
 	@Temporal(TemporalType.DATE)
@@ -99,11 +99,11 @@ public class User implements Serializable {
 	}
 
 	public UUID getId() {
-		return id;
+		return uuid;
 	}
 
 	public void setId(UUID id) {
-		this.id = id;
+		this.uuid = id;
 	}
 
 	public String getName() {

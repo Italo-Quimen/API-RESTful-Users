@@ -3,6 +3,7 @@ package com.polo.api.restful.users.models.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,6 +45,26 @@ public class UserServiceImpl implements IUserService {
 
 		return userDao.save(user);
 	}
+	
+    @Override
+    @Transactional
+    public Optional<User> update(UUID uuid, User user) {
+        Optional<User> userOptional = userDao.findById(uuid);
+        if (userOptional.isPresent()) {
+        	User userDb = userOptional.orElseThrow();
+            
+            userDb.setName(user.getName());
+            userDb.setEmail(user.getEmail());
+            userDb.setPassword(user.getPassword());
+            userDb.setPhones(user.getPhones());
+            userDb.setModified(user.getModified());
+            userDb.setLast_login(user.getLast_login());
+            
+            return Optional.of(userDao.save(userDb));
+            
+        }
+        return userOptional;
+    }
 
 	@Override
 	@Transactional(readOnly = true)
