@@ -68,7 +68,7 @@ public class User implements Serializable {
 	private List<Role> roles;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JsonManagedReference
+	@JsonManagedReference
 	private List<Phone> phones;
 
 	@Temporal(TemporalType.DATE)

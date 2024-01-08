@@ -47,6 +47,7 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/users").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/api/users/{uuid}").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/api/users/{uuid}").permitAll()
                 //.requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))

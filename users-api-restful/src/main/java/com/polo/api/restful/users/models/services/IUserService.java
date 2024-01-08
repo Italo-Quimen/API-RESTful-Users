@@ -12,5 +12,7 @@ public interface IUserService {
 	public User save(User user);
 
 	Optional<User> update(UUID uuid, User user);
+	
+	Optional<User> delete(UUID uuid);
 
 }

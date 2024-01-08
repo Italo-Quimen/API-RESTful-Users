@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -76,6 +77,15 @@ public class UserRestfulController {
 		Optional<User> userOptional = userService.update(uuid, user);
 		if (userOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(userOptional.orElseThrow());
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
+	@DeleteMapping("/{uuid}")
+	public ResponseEntity<?> delete(@PathVariable("uuid") UUID uuid) {
+		Optional<User> userOptional = userService.delete(uuid);
+		if (userOptional.isPresent()) {
+			return ResponseEntity.ok(userOptional.orElseThrow());
 		}
 		return ResponseEntity.notFound().build();
 	}

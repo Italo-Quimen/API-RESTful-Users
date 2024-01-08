@@ -65,6 +65,16 @@ public class UserServiceImpl implements IUserService {
         }
         return userOptional;
     }
+    
+    @Transactional
+    @Override
+    public Optional<User> delete(UUID uuid) {
+        Optional<User> userOptional = userDao.findById(uuid);
+        userOptional.ifPresent(userDb -> {
+        	userDao.delete(userDb);
+        });
+        return userOptional;
+    }
 
 	@Override
 	@Transactional(readOnly = true)
