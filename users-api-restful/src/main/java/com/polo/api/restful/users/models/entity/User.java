@@ -83,8 +83,7 @@ public class User implements Serializable {
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date last_login;
 
-	@GeneratedValue(generator = "uuid2")
-	private UUID token;
+	private String token;
 
 	private boolean isactive;
 	
@@ -95,6 +94,7 @@ public class User implements Serializable {
 	public User() {
 		phones = new ArrayList<Phone>();
 		created = new Date();
+		last_login = new Date();
 		roles = new ArrayList<>();
 	}
 
@@ -170,11 +170,11 @@ public class User implements Serializable {
 		this.last_login = last_login;
 	}
 
-	public UUID getToken() {
+	public String getToken() {
 		return token;
 	}
 
-	public void setToken(UUID token) {
+	public void setToken(String token) {
 		this.token = token;
 	}
 
