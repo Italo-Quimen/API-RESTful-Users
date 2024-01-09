@@ -1,11 +1,14 @@
 package com.polo.api.restful.users.models.services;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import com.polo.api.restful.users.models.entity.User;
 
 public interface IUserService {
+	
+	List<User> findAll();
 
 	boolean existsByEmail(String email);
 

@@ -26,6 +26,12 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<User> findAll() {
+		return (List<User>) userDao.findAll();
+	}
 
 	@Override
 	@Transactional

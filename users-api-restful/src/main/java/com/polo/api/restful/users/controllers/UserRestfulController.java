@@ -4,6 +4,7 @@ import static com.polo.api.restful.users.security.TokenJwtConfig.SECRET_KEY;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,7 +37,12 @@ public class UserRestfulController {
 
 	@Autowired
 	private IUserService userService;
-
+	
+	@GetMapping
+	public List<User> list() {
+		return userService.findAll();
+	}
+	    
 	@PostMapping
 	public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
 		if (result.hasFieldErrors()) {
