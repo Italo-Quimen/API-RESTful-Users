@@ -32,6 +32,12 @@ public class UserServiceImpl implements IUserService {
 	public List<User> findAll() {
 		return (List<User>) userDao.findAll();
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Optional<User> findById(UUID uuid) {
+		return userDao.findById(uuid);
+	}
 
 	@Override
 	@Transactional

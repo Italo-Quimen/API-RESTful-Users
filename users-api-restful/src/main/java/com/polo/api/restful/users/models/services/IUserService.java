@@ -9,6 +9,8 @@ import com.polo.api.restful.users.models.entity.User;
 public interface IUserService {
 	
 	List<User> findAll();
+	
+	Optional<User> findById(UUID uuid);
 
 	boolean existsByEmail(String email);
 

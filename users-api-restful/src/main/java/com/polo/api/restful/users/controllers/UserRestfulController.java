@@ -42,6 +42,15 @@ public class UserRestfulController {
 	public List<User> list() {
 		return userService.findAll();
 	}
+	
+	@GetMapping("/{uuid}")
+	public ResponseEntity<?> view(@PathVariable("uuid") UUID uuid) {
+		Optional<User> productOptional = userService.findById(uuid);
+		if (productOptional.isPresent()) {
+			return ResponseEntity.ok(productOptional.orElseThrow());
+		}
+		return ResponseEntity.notFound().build();
+	}
 	    
 	@PostMapping
 	public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {

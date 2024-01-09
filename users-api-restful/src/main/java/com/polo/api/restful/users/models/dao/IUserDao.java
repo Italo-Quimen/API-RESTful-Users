@@ -8,7 +8,7 @@ import com.polo.api.restful.users.models.entity.User;
 
 public interface IUserDao extends CrudRepository<User, UUID> {
 
-	Optional<User> findById(UUID id);
+	Optional<User> findById(UUID uuid);
 
 	boolean existsByName(String name);
 
