@@ -2,6 +2,7 @@ package com.polo.api.restful.users.controllers;
 
 import static com.polo.api.restful.users.security.TokenJwtConfig.SECRET_KEY;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -66,8 +67,11 @@ public class UserRestfulController {
 		user.setAdmin(false);
 
 		try {
+			List<String> rol = new ArrayList<>();
+			rol.add("ROLE_USER");
+			
 			Claims claims = Jwts.claims()
-					.add("authorities", new ObjectMapper().writeValueAsString("ROLE_USER"))
+					.add("authorities", new ObjectMapper().writeValueAsString(List.of(Map.of("authority", "ROLE_USER"))))
 					.add("username", user.getName()).build();
 
 			String token = Jwts.builder()
